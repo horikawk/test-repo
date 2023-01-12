@@ -18,24 +18,19 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.join(__dirname, 'src')
-    }
+      '@': path.join(__dirname, 'src'),
+    },
   },
   plugins: [
     // Put the Sentry vite plugin after all other plugins
     sentryVitePlugin({
-      // org: "fsi-p6",
       org: process.env.VITE_SENTRY_ORG,
-      // project: "javascript-react",
       project: process.env.VITE_SENTRY_PROJECT,
-
       // Specify the directory containing build artifacts
-      include: "./dist",
-
+      include: './dist',
       // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
       // and needs the `project:releases` and `org:read` scopes
       authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
-
       // Optionally uncomment the line below to override automatic release name detection
       // release: process.env.RELEASE,
     }),

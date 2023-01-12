@@ -1,0 +1,48 @@
+{
+  "name": "react-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm-run-all -p dev:*",
+    "dev:tsc": "tsc --noEmit --watch",
+    "dev:vite": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format": "npm run format:check",
+    "format:check": "npm run format:prettier -- --check",
+    "format:prettier": "prettier ./",
+    "lint": "npm run lint:check",
+    "lint:check": "npm run lint:eslint",
+    "lint:fix": "npm run lint:eslint -- --fix",
+    "lint:eslint": "eslint --ext .js,.ts,.jsx,.tsx ./src"
+  },
+  "dependencies": {
+    "@sentry/cli": "^2.11.0",
+    "@sentry/react": "^7.30.0",
+    "@sentry/tracing": "^7.30.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@sentry/vite-plugin": "^0.3.0",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "@vitejs/plugin-react": "^3.0.0",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.7.0",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.2",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}

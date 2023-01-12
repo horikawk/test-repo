@@ -1,0 +1,6 @@
+[auth]
+token=8c73a4ee32a54ecc8154e6cedfbd437856a4792cf1c046f0baadcadf19860dfb
+
+[defaults]
+org=fsi-p6
+project=javascript-react

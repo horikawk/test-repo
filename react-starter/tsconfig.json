@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
     // "sourceMap": true,  // ソースマップファイル(.map)を出力する
     // "inlineSources": true,  // ソースマップに沿ってソースを単一ファイル出力する
   },

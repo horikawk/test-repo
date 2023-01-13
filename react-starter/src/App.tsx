@@ -1,38 +1,45 @@
 import { useState } from 'react'
+import * as Sentry from '@sentry/react'
 
-import reactLogo from './assets/react.svg'
 import './App.css'
 
-const App = () => {
-  const [count, setCount] = useState(0)
+const BadComponent = () => {
+  throw new Error('throw error test')
+}
 
+const App = () => {
+  const [errorIsShown, setErrorIsShown] = useState(false)
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>Sentry Sample</h1>
       <div className="card">
-        {/* <button onClick={() => setCount((count) => count + 1)}> */}
-        {/* ログ出力確認：存在しない関数を呼び出す */}
-        <button onClick={() => methodDoesNotExist()}>Does Not Exist Method Call</button>
+        {/* ボタン押下で例外を発生させる */}
         <button
+          type="button"
           onClick={() => {
-            throw new Error('throw error')
+            setErrorIsShown(true)
           }}
         >
-          throw Error
+          Sentry.ErrorBoundaryで例外を補足
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button
+          type="button"
+          onClick={() => {
+            Sentry.captureException('info level Exception test', { level: 'info' })
+          }}
+        >
+          Infoレベルのエラー
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            Sentry.captureException('error level Exception test', { level: 'error' })
+          }}
+        >
+          Errorレベルのエラー
+        </button>
+        {errorIsShown && <BadComponent />}
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </div>
   )
 }

@@ -10,6 +10,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "npm run format:check",
+    "format:fix": "npm run format:prettier -- --write",
     "format:check": "npm run format:prettier -- --check",
     "format:prettier": "prettier ./",
     "lint": "npm run lint:check",

@@ -1,24 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import * as Sentry from '@sentry/react'
 
 import App from './App'
 
 import './index.css'
-import * as Sentry from '@sentry/react'
-import { BrowserTracing } from '@sentry/tracing'
 
 Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_DSN,
-  // integrations: [new BrowserTracing()],
+  dsn: import.meta.env.VITE_SENTRY_DSN, // Sentry上のClient Keys(DSN)
 
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  // tracesSampleRate: 1.0,
+  // ログ送信前処理
+  beforeSend(event) {
+    // infoレベルは送信しない
+    if (event.level === 'info') {
+      return null
+    }
+    return event
+  },
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Sentry.ErrorBoundary fallback={<p>Exception thrown!!!</p>}>
+      <App />
+    </Sentry.ErrorBoundary>
   </React.StrictMode>
 )

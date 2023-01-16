@@ -3,8 +3,28 @@ import * as Sentry from '@sentry/react'
 
 import './App.css'
 
+import { axios } from './lib/axios'
+
 const BadComponent = () => {
-  throw new Error('throw error test')
+  throw new Error('BadComponent error')
+}
+
+const ApiCall402 = async () => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+    void (await axios.get('/user'))
+  } catch (e) {
+    Sentry.captureMessage('ApiCall402 error', { level: 'warning' })
+  }
+}
+
+const ApiCall500 = async () => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+    void (await axios.get('/login'))
+  } catch (e) {
+    Sentry.captureException('ApiCall500 error', { level: 'error' })
+  }
 }
 
 const App = () => {
@@ -37,6 +57,14 @@ const App = () => {
           }}
         >
           Errorレベルのエラー
+        </button>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <button type="button" onClick={() => ApiCall402()}>
+          API実行(402エラー)
+        </button>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <button type="button" onClick={() => ApiCall500()}>
+          API実行(500エラー)
         </button>
         {errorIsShown && <BadComponent />}
       </div>

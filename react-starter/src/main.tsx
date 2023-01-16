@@ -2,13 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import * as Sentry from '@sentry/react'
 
+import { worker } from './__mocks__/api/browser'
 import App from './App'
 
 import './index.css'
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN, // Sentry上のClient Keys(DSN)
-
   // ログ送信前処理
   beforeSend(event) {
     // infoレベルは送信しない
@@ -18,6 +18,8 @@ Sentry.init({
     return event
   },
 })
+
+void worker.start()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
